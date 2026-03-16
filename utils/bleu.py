@@ -45,3 +45,10 @@ def idx_to_word(x, vocab):
     words = " ".join(words)
     return words
 
+def get_bleu(hypothesis, reference):
+    stats = np.array([0., 0., 0., 0., 0., 0., 0., 0.])
+
+    for hyp, ref in zip(hypothesis, reference):
+        stats += np.array(bleu_stats(hyp, ref))
+
+    return 100 * bleu(stats)
